@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projektikoht — Fullscreen Hero</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --accent: #f87171;
+  --text: #c9d1d9;
+  --muted: #8b949e;
+  --ff: 'Segoe UI', sans-serif;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:var(--ff); color:var(--text); background:var(--bg); line-height:1.5;}
+.hero{height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px;}
+.hero h1{font-size:48px; margin-bottom:16px;}
+.hero p{font-size:20px; color:var(--muted); max-width:600px; margin-bottom:32px;}
+.btn{padding:12px 24px; border:none; border-radius:8px; font-weight:600; cursor:pointer; text-decoration:none;}
+.btn-primary{background:var(--accent); color:#fff; margin-right:12px;}
+.btn-secondary{background:transparent; border:1px solid var(--accent); color:var(--accent);}
+section{padding:60px 20px; max-width:1200px; margin:0 auto;}
+h2{font-size:32px; margin-bottom:24px; text-align:center;}
+.projects{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:24px;}
+.card{background:#161b22; border-radius:12px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.4); transition:transform .25s; cursor:pointer;}
+.card:hover{transform:translateY(-6px);}
+.card img{width:100%; height:180px; object-fit:cover; display:block;}
+.card-body{padding:16px;}
+.card-body h3{margin-bottom:8px;}
+.card-body p{margin-bottom:12px; color:var(--muted); font-size:14px;}
+.card-tags{display:flex; gap:8px; flex-wrap:wrap;}
+.tag{background:rgba(255,255,255,0.05); padding:4px 10px; border-radius:999px; font-size:12px; color:var(--muted);}
+footer{text-align:center; padding:24px; color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Tere tulemast minu projektidesse</h1>
+  <p>Siin saad näha minu parimaid töid koos kirjelduste ja tehnoloogiatega. Kõik projektid on valmis jagamiseks ja demo näitamiseks.</p>
+  <a href="#projects" class="btn btn-primary">Vaata projekte</a>
+  <a href="#contact" class="btn btn-secondary">Võta ühendust</a>
+</div>
+
+<section id="projects">
+  <h2>Projektid</h2>
+  <div class="projects">
+    <div class="card">
+      <img src="https://via.placeholder.com/400x180.png?text=Projekt+1" alt="Projekt 1">
+      <div class="card-body">
+        <h3>Veebirakendus</h3>
+        <p>HTML, CSS ja JavaScripti rakendus, mis lahendab praktilise probleemi.</p>
+        <div class="card-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/400x180.png?text=Projekt+2" alt="Projekt 2">
+      <div class="card-body">
+        <h3>Mäng</h3>
+        <p>Lihtne brauserimäng, mis õpetab loogikat ja sündmuste töötlemist.</p>
+        <div class="card-tags"><span class="tag">Canvas</span><span class="tag">JS</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/400x180.png?text=Projekt+3" alt="Projekt 3">
+      <div class="card-body">
+        <h3>Disainiprojekt</h3>
+        <p>Figma prototüüp kasutajaliidese jaoks, keskendudes UX ja navile.</p>
+        <div class="card-tags"><span class="tag">Figma</span><span class="tag">Prototype</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="text-align:center; padding:60px 20px;">
+  <h2>Kontakt</h2>
+  <p style="color:#8b949e; margin-top:6px;">Kirjuta mulle: <a href="mailto:you@example.com" style="color:var(--accent); text-decoration:none;">you@example.com</a></p>
+</section>
+
+<footer>
+  &copy; <span id="year"></span> Sinu nimi — Fullscreen Hero Layout
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Projektigalerií — Filtrid ja demo</title>
+<style>
+  :root{
+    --bg:#0a0f1a; --card:#0f1724; --muted:#98a0b3; --accent:#06b6d4; --accent2:#8b5cf6; --glass:rgba(255,255,255,0.03);
+    --radius:12px; --ff: Inter, system-ui, Arial;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:linear-gradient(180deg,#031025 0%,#07142a 100%);font-family:var(--ff);color:#e6eef8;padding:28px}
+  .wrap{max-width:1200px;margin:0 auto}
+  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .logo{display:flex;gap:12px;align-items:center}
+  .logo .dot{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:800}
+  h1{margin:0;font-size:20px}
+  .sub{color:var(--muted);font-size:13px}
+
+  .controls{display:flex;gap:10px;align-items:center;margin:18px 0}
+  .search{flex:1}
+  .search input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+  .filters{display:flex;gap:8px}
+  .chip{padding:8px 10px;border-radius:999px;background:var(--glass);cursor:pointer;border:1px solid rgba(255,255,255,0.03);color:var(--muted);font-size:13px}
+  .chip.active{background:linear-gradient(90deg,var(--accent2),var(--accent));color:#021127;border:1px solid rgba(255,255,255,0.06)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .tile{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .18s}
+  .tile:hover{transform:translateY(-6px)}
+  .thumb{height:140px;border-radius:8px;background:linear-gradient(90deg, rgba(139,92,246,0.14), rgba(6,182,212,0.08));display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
+  .tile h3{margin:10px 0 6px 0;font-size:16px}
+  .tile p{margin:0;color:var(--muted);font-size:13px}
+  .tags{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+  .tag{font-size:12px;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--muted)}
+
+  /* modal */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(1,4,9,0.6);z-index:50;padding:20px}
+  .modal.open{display:flex}
+  .modal-card{width:min(880px,96%);background:linear-gradient(180deg,#071226,#081529);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+  .modal-head{display:flex;justify-content:space-between;align-items:center}
+  .modal-head h2{margin:0}
+  .close{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px 10px;border-radius:8px;cursor:pointer}
+  .modal-body{display:flex;gap:12px;margin-top:12px}
+  .modal-preview{flex:1;height:360px;border-radius:8px;background:linear-gradient(90deg, rgba(139,92,246,0.18), rgba(6,182,212,0.08));display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800}
+  .modal-info{width:320px}
+  .meta-row{margin-top:10px;color:var(--muted)}
+
+  footer{margin-top:18px;color:var(--muted);text-align:center}
+
+  @media (max-width:720px){.modal-body{flex-direction:column}.modal-info{width:100%}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <div class="dot">G</div>
+        <div>
+          <h1>Projektigalerií</h1>
+          <div class="sub">Filtreeri ja ava detailvaade — kiire ja lihtne</div>
+        </div>
+      </div>
+      <div class="sub">© <span id="year"></span> Sinu nimi</div>
+    </header>
+
+    <div class="controls">
+      <div class="search"><input id="search" placeholder="Otsi projekti (nt 'mäng', 'disain')"></div>
+      <div class="filters" id="filters">
+        <div class="chip active" data-filter="*">Kõik</div>
+        <div class="chip" data-filter="web">Veeb</div>
+        <div class="chip" data-filter="game">Mäng</div>
+        <div class="chip" data-filter="design">Disain</div>
+        <div class="chip" data-filter="tool">Tööriist</div>
+      </div>
+    </div>
+
+    <div class="grid" id="grid">
+      <!-- üksikud projektid -->
+      <div class="tile" data-tags="web,tool" data-title="Kooliveeb">
+        <div class="thumb">Kooliveeb</div>
+        <h3>Kooliveeb</h3>
+        <p>Lihtne CMS ja esildis. Saab kiiresti pisipiltide ja linkidega jagada.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+      </div>
+
+      <div class="tile" data-tags="game" data-title="Puksiirimäng">
+        <div class="thumb">Mäng</div>
+        <h3>Puksiirimäng</h3>
+        <p>Lihtne mäng JavaScriptiga — õppisin sündmuste ja füüsika lihtsust.</p>
+        <div class="tags"><span class="tag">Canvas</span><span class="tag">Logic</span></div>
+      </div>
+
+      <div class="tile" data-tags="design" data-title="UI Prototype">
+        <div class="thumb">Disain</div>
+        <h3>UI Prototype</h3>
+        <p>Prototüüp Figma-st, keskendudes kasutajakogemusele ja navile.</p>
+        <div class="tags"><span class="tag">Figma</span></div>
+      </div>
+
+      <div class="tile" data-tags="web,tool" data-title="Todo App">
+        <div class="thumb">App</div>
+        <h3>Todo App</h3>
+        <p>Väike rakendus, mis salvestab andmed kohalikku mällu ja näitab listi.</p>
+        <div class="tags"><span class="tag">LocalStorage</span></div>
+      </div>
+
+      <div class="tile" data-tags="web" data-title="Portfolio v2">
+        <div class="thumb">Portfoolio</div>
+        <h3>Portfolio v2</h3>
+        <p>Uuendatud kujundus ja dünaamilised projektikaardid.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+      </div>
+
+      <div class="tile" data-tags="tool,design" data-title="Kujundustööriist">
+        <div class="thumb">Tööriist</div>
+        <h3>Kujundustööriist</h3>
+        <p>Interaktiivne tööriist piltide ja värvide testimiseks.</p>
+        <div class="tags"><span class="tag">JS</span><span class="tag">Canvas</span></div>
+      </div>
+
+    </div>
+
+    <footer>Kui soovid, saan lisada nuppe: GitHub, Live demo või alla-laadimise.</footer>
+  </div>
+
+  <!-- modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h2 id="modal-title">Projektinimi</h2>
+        <button class="close" id="modal-close">Sulge</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-preview" id="modal-preview">Preview</div>
+        <div class="modal-info">
+          <p id="modal-desc" style="color:var(--muted)">Pikem kirjeldus projektist, kasutatud tehnoloogiad ja lingid demole või GitHub-ile.</p>
+          <div class="meta-row">Sildid: <span id="modal-tags" style="color:var(--muted)"></span></div>
+          <div style="margin-top:12px"><a id="modal-link" href="#" style="color:var(--accent);text-decoration:none">Ava demo</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const chips = document.querySelectorAll('.chip');
+  const tiles = Array.from(document.querySelectorAll('.tile'));
+  const search = document.getElementById('search');
+
+  function applyFilter(){
+    const active = document.querySelector('.chip.active').dataset.filter;
+    const q = search.value.trim().toLowerCase();
+
+    tiles.forEach(t=>{
+      const tags = t.dataset.tags.split(',');
+      const title = t.dataset.title.toLowerCase();
+      const matchesTag = (active==='*') || tags.includes(active);
+      const matchesSearch = q==='' || title.includes(q) || t.querySelector('p').textContent.toLowerCase().includes(q);
+      t.style.display = (matchesTag && matchesSearch) ? 'block' : 'none';
+    })
+  }
+
+  chips.forEach(c=>c.addEventListener('click',()=>{chips.forEach(x=>x.classList.remove('active'));c.classList.add('active');applyFilter()}));
+  search.addEventListener('input',applyFilter);
+
+  // modal details
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalTags = document.getElementById('modal-tags');
+  const modalPreview = document.getElementById('modal-preview');
+  const modalLink = document.getElementById('modal-link');
+  const modalClose = document.getElementById('modal-close');
+
+  tiles.forEach(t=>t.addEventListener('click',()=>{
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    modalTitle.textContent = t.querySelector('h3').textContent;
+    modalDesc.textContent = t.querySelector('p').textContent;
+    modalTags.textContent = t.dataset.tags;
+    modalPreview.textContent = t.querySelector('.thumb').textContent;
+    modalLink.href = '#';
+  }));
+
+  modalClose.addEventListener('click',()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true')});
+  modal.addEventListener('click',(e)=>{ if(e.target===modal){modal.classList.remove('open');modal.setAttribute('aria-hidden','true')} });
+
+</script>
+</body>
+</html>
