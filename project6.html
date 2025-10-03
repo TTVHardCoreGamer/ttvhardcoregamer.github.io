@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projektikoht — Sidebar Navigation</title>
+<style>
+:root {
+  --bg: #1e1e2f;
+  --card: #2b2b3d;
+  --accent: #f472b6;
+  --text: #e4e4f1;
+  --muted: #a0aec0;
+  --ff: 'Segoe UI', sans-serif;
+  --radius:12px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:var(--ff); background:var(--bg); color:var(--text); display:flex; min-height:100vh;}
+.sidebar{width:240px; background:#16162a; padding:20px; display:flex; flex-direction:column;}
+.sidebar h2{margin-bottom:24px; font-size:20px;}
+.sidebar a{color:var(--muted); text-decoration:none; margin-bottom:16px; display:block; font-weight:500;}
+.sidebar a:hover{color:var(--accent);}
+.main{flex:1; padding:40px; overflow-y:auto;}
+.projects{display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px;}
+.card{background:var(--card); border-radius:var(--radius); overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.5); transition:transform .2s; cursor:pointer;}
+.card:hover{transform:translateY(-6px);}
+.card img{width:100%; height:160px; object-fit:cover;}
+.card-body{padding:16px;}
+.card-body h3{margin-bottom:8px;}
+.card-body p{margin-bottom:12px; color:var(--muted); font-size:14px;}
+.card-tags{display:flex; gap:8px; flex-wrap:wrap;}
+.tag{background:rgba(255,255,255,0.05); padding:4px 10px; border-radius:999px; font-size:12px; color:var(--muted);}
+footer{margin-top:40px; text-align:center; color:var(--muted);}
+</style>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>Minu Portfoolio</h2>
+    <a href="#projects">Projektid</a>
+    <a href="#contact">Kontakt</a>
+  </aside>
+  <main class="main">
+    <section id="projects">
+      <h2>Projektid</h2>
+      <div class="projects">
+        <div class="card">
+          <img src="https://via.placeholder.com/400x160.png?text=Projekt+1" alt="Projekt 1">
+          <div class="card-body">
+            <h3>Veebirakendus</h3>
+            <p>HTML, CSS ja JS projekt praktilise lahendusega.</p>
+            <div class="card-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://via.placeholder.com/400x160.png?text=Projekt+2" alt="Projekt 2">
+          <div class="card-body">
+            <h3>Mäng</h3>
+            <p>Lihtne mäng JavaScriptiga, loogika ja sündmuste õppimiseks.</p>
+            <div class="card-tags"><span class="tag">Canvas</span><span class="tag">JS</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="https://via.placeholder.com/400x160.png?text=Projekt+3" alt="Projekt 3">
+          <div class="card-body">
+            <h3>Disainiprojekt</h3>
+            <p>UX prototüüp Figma abil, navigeerimisele keskendudes.</p>
+            <div class="card-tags"><span class="tag">Figma</span><span class="tag">Prototype</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:60px; text-align:center;">
+      <h2>Kontakt</h2>
+      <p style="color:var(--muted); margin-top:6px;">Kirjuta mulle: <a href="mailto:you@example.com" style="color:var(--accent); text-decoration:none;">you@example.com</a></p>
+    </section>
+
+    <footer>&copy; <span id="year"></span> Sinu nimi — Sidebar Navigation</footer>
+  </main>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
