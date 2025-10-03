@@ -2,14 +2,208 @@
 <html lang="et">
 <head>
   <meta charset="utf-8" />
-  <title>Minu CV</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Minu Projektikoht</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#7c3aed;
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      --max-width:1100px;
+      --ff: 'Segoe UI', Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--ff);
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent),
+                  linear-gradient(180deg,#071021 0%,var(--bg) 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:32px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+    }
+
+    .wrap{width:100%;max-width:var(--max-width)}
+
+    header{
+      display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;
+    }
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(12,17,28,0.6);
+    }
+    .brand h1{font-size:20px;margin:0}
+    nav{display:flex;gap:12px}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;font-size:14px}
+    nav a:hover{color:#fff;background:var(--glass)}
+
+    main{display:grid;grid-template-columns:1fr 380px;gap:28px}
+
+    /* left column */
+    .hero{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:22px;border-radius:var(--radius);box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .hero .intro{display:flex;gap:18px;align-items:center}
+    .avatar{width:96px;height:96px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px}
+    .intro h2{margin:0 0 6px 0;font-size:22px}
+    .intro p{margin:0;color:var(--muted)}
+    .cta-row{display:flex;gap:10px;margin-top:16px}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;text-decoration:none;font-weight:600;font-size:14px}
+    .btn--solid{background:linear-gradient(90deg,var(--accent),#06b6d4)}
+
+    .projects{margin-top:18px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .card h3{margin:0 0 8px 0;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:13px}
+    .tag-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .tag{font-size:12px;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--muted)}
+
+    /* right column */
+    .side{position:sticky;top:36px}
+    .about{background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .about h4{margin:0 0 8px 0}
+    .contact{margin-top:12px;display:grid;gap:8px}
+    .contact a{display:block;padding:10px;border-radius:10px;text-decoration:none;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);color:var(--muted);font-size:14px}
+
+    footer{margin-top:22px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* responsive */
+    @media (max-width:900px){
+      main{grid-template-columns:1fr}
+      .projects{grid-template-columns:1fr}
+      .avatar{width:80px;height:80px}
+    }
+
+    /* small animations */
+    .logo, .avatar{transition:transform .28s ease}
+    .logo:hover, .avatar:hover{transform:translateY(-6px) scale(1.02)}
+
+    /* helper: project preview image */
+    .preview{height:96px;border-radius:10px;background:linear-gradient(90deg, rgba(124,58,237,0.12), rgba(6,182,212,0.08));display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:600}
+
+  </style>
 </head>
 <body>
-  <h1>Minu CV</h1>
-  <p>Siin on minu CV leht. Kui soovid minna teisele lehele, vajuta nuppu:</p>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">PK</div>
+        <div>
+          <h1>Minu projektikoht</h1>
+          <div style="color:var(--muted);font-size:13px">Kohene ülevaade sinu projektidest</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#projects">Projektid</a>
+        <a href="#about">Minust</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+    </header>
 
-  <button onclick="window.location.href='https://näide.ee/sihtleht'">
-    Mine sihtlehele
-  </button>
+    <main>
+      <section>
+        <div class="hero">
+          <div class="intro">
+            <div class="avatar">S</div>
+            <div>
+              <h2>Tere! Mina olen Sinu nimi</h2>
+              <p>Siin on minu projektid — lühikirjeldused, lingid ja demod. Kasuta seda lehte, et näidata, mida oskad.</p>
+              <div class="cta-row">
+                <a class="btn btn--solid" href="#projects">Vaata projekte</a>
+                <a class="btn" href="#contact">Võta ühendust</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="projects" id="projects">
+            <article class="card">
+              <div class="preview">Projekt 1</div>
+              <h3>Projekt 1 — Veebirakendus</h3>
+              <p>Kiire kirjeldus: mis probleemi projekt lahendab ja mis tehnoloogiad said kasutatud.</p>
+              <div class="tag-row">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="preview">Projekt 2</div>
+              <h3>Projekt 2 — Mäng</h3>
+              <p>Kirjeldus: lühike ülevaade mängust, eesmärkidest ja tulemustest.</p>
+              <div class="tag-row">
+                <span class="tag">Canvas</span>
+                <span class="tag">Logic</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="preview">Projekt 3</div>
+              <h3>Projekt 3 — Disain</h3>
+              <p>Kirjeldus: visuaalne projekt või prototüüp, millele oled uhke.</p>
+              <div class="tag-row">
+                <span class="tag">Figma</span>
+                <span class="tag">Prototype</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="preview">Projekt 4</div>
+              <h3>Projekt 4 — Muud</h3>
+              <p>Lühikirjeldus ja link GitHubile või demole.</p>
+              <div class="tag-row">
+                <span class="tag">GitHub</span>
+                <span class="tag">Demo</span>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <footer>
+          <div>© <span id="year"></span> Sinu nimi — tehtud kiirelt ja stiilselt</div>
+        </footer>
+      </section>
+
+      <aside class="side">
+        <div class="about" id="about">
+          <h4>Minust</h4>
+          <p style="color:var(--muted);font-size:14px;margin:0">Kirjuta siia lühike lause enda kohta: õpilane, hobi, tehnoloogiad, mida õpid. Näiteks: "Olen 15-aastane huviline, kes õpib HTMLi ja CSSi."</p>
+        </div>
+
+        <div class="about" style="margin-top:12px" id="contact">
+          <h4>Kontakt</h4>
+          <div class="contact">
+            <a href="mailto:your@email.com">Saada e-kiri</a>
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn / Muud</a>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // asetame jooksva aasta footeri
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // lihtne: kui kasutaja klikib "Vaata projekte", kerib peenelt
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const href = a.getAttribute('href');
+        if(href.length>1){
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      })
+    })
+  </script>
 </body>
 </html>
